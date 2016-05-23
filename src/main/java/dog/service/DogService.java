@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Component
 public class DogService {
 
@@ -19,17 +21,20 @@ public class DogService {
     }
 
     public Dog findOneById(final Long id) {
-        Dog one = dogRepository.findOne(id);
-        return one;
+        return dogRepository.findOne(id);
+    }
+
+    public List<Dog> findAllDogs() {
+        return dogRepository.findAll();
     }
 
     public void deleteDog(final Long id) {
         dogRepository.delete(id);
     }
 
-//    @Transactional
-//    public Dog updateDog(final Long id, final Dog dog) {
-//        dog.setId(id);
-//        return dogRepository.save(dog);
-//    }
+    @Transactional
+    public Dog updateDog(final Long id, final Dog dog) {
+        dog.setId(id);
+        return dogRepository.save(dog);
+    }
 }

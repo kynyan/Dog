@@ -7,6 +7,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import dog.service.DogService;
 
+import java.util.List;
+
 @Controller
 public class DogEndpoint {
 
@@ -16,6 +18,11 @@ public class DogEndpoint {
     @RequestMapping(method = RequestMethod.GET, path = "/dog/{id}")
     public Dog getDog(@PathVariable Long id) {
         return dogService.findOneById(id);
+    }
+
+    @RequestMapping(method = RequestMethod.GET, path = "/dog")
+    public List<Dog> listDogs() {
+        return dogService.findAllDogs();
     }
 
     @RequestMapping(method = RequestMethod.POST, path = "/dog")
@@ -29,10 +36,9 @@ public class DogEndpoint {
         return ResponseEntity.noContent().build();
     }
 
-//    @RequestMapping(method = RequestMethod.PUT, path = "/dog/{id}")
-//    public Dog updateDog(@PathVariable Long id, @RequestBody Dog dog) {
-//        Dog result = dogService.updateDog(id, dog);
-//        return result;
-//    }
+    @RequestMapping(method = RequestMethod.PUT, path = "/dog/{id}")
+    public Dog updateDog(@PathVariable Long id, @RequestBody Dog dog) {
+        return dogService.updateDog(id, dog);
+    }
 
 }

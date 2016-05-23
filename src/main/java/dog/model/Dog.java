@@ -4,8 +4,9 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
-import org.springframework.data.annotation.Id;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
 import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.Past;
 import javax.validation.constraints.Size;
@@ -15,6 +16,7 @@ import java.time.LocalDate;
 @Setter
 @ToString
 @RequiredArgsConstructor
+@Entity
 public class Dog {
 
     public static final String DOG_NAME_SIZE_NOTE = "Should be between 1 and 100 symbols.";

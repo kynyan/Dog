@@ -1,9 +1,0 @@
-CREATE TABLE DOG (
-
-  ID                NUMBER(22) PRIMARY KEY,
-  NAME              VARCHAR2(100) NOT NULL,
-  WEIGHT            NUMBER(22) NOT NULL,
-  HEIGHT            NUMBER(22) NOT NULL,
-  BIRTHDATE         DATE,
-
-);

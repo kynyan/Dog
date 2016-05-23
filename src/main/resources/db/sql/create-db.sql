@@ -1,0 +1,9 @@
+CREATE TABLE DOG (
+
+  ID                NUMERIC(22) PRIMARY KEY,
+  NAME              VARCHAR(100) NOT NULL,
+  WEIGHT            NUMERIC(22) NOT NULL,
+  HEIGHT            NUMERIC(22) NOT NULL,
+  BIRTHDATE         DATE,
+
+);
