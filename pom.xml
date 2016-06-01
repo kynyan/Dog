@@ -15,6 +15,7 @@
         <spring-data-jpa.version>1.9.4.RELEASE</spring-data-jpa.version>
         <spring.version>4.2.4.RELEASE</spring.version>
         <hsqldb.version>2.3.3</hsqldb.version>
+        <javax.sevet-api.version>3.1.0</javax.sevet-api.version>
     </properties>
 
     <dependencies>
@@ -60,6 +61,15 @@
             <version>${spring.version}</version>
         </dependency>
 
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>javax.servlet-api</artifactId>
+            <version>${javax.sevet-api.version}</version>
+            <scope>provided</scope>
+        </dependency>
+
+
+
     </dependencies>
 
     <!--<distributionManagement>-->
@@ -90,7 +100,7 @@
                 <configuration>
                     <url>http://localhost:8080/manager/text</url>
                     <server>TomcatServer</server>
-                    <path>/DogWebApp</path>
+                    <path>/</path>
                     <username>admin</username>
                     <password>password</password>
                 </configuration>

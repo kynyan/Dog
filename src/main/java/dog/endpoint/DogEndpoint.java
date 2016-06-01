@@ -3,17 +3,21 @@ package dog.endpoint;
 import dog.model.Dog;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import dog.service.DogService;
 
 import java.util.List;
 
-@Controller
+@RestController
 public class DogEndpoint {
 
     @Autowired
     private DogService dogService;
+
+    @RequestMapping(method = RequestMethod.GET)
+    public String helloWorld() {
+        return "Hi!";
+    }
 
     @RequestMapping(method = RequestMethod.GET, path = "/dog/{id}")
     public Dog getDog(@PathVariable Long id) {

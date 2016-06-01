@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee"
-         xmlns:jdbc="http://www.springframework.org/schema/jdbc"
          xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_1.xsd">
+
 
 <display-name>Dog Application</display-name>
 
@@ -15,12 +15,19 @@
 
     <servlet-mapping>
         <servlet-name>spring-web</servlet-name>
-        <url-pattern>/</url-pattern>
+        <url-pattern>/hello.jsp</url-pattern>
+        <url-pattern>/hello.html</url-pattern>
+        <url-pattern>*.html</url-pattern>
     </servlet-mapping>
 
-    <jdbc:embedded-database id="dataSource" type="HSQL">
-        <jdbc:script location="classpath:db/sql/create-db.sql" />
-        <jdbc:script location="classpath:db/sql/insert-data.sql" />
-    </jdbc:embedded-database>
+    <servlet>
+        <servlet-name>hello-servlet</servlet-name>
+        <servlet-class>dog.HelloServlet</servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>hello-servlet</servlet-name>
+        <url-pattern>/HelloServlet</url-pattern>
+    </servlet-mapping>
 
 </web-app>
