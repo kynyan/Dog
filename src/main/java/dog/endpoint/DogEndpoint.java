@@ -24,9 +24,10 @@ public class DogEndpoint {
         return dogService.findOneById(id);
     }
 
-    @RequestMapping(method = RequestMethod.GET, path = "/dog")
-    public List<Dog> listDogs() {
-        return dogService.findAllDogs();
+    @RequestMapping(method = RequestMethod.GET, path = "/dog", produces="application/json")
+    public ResponseEntity<List<Dog>> listDogs() {
+//        return ResponseEntity.ok(dogService.createRandomDogs(10));
+        return ResponseEntity.ok(dogService.createStaticDogs());
     }
 
     @RequestMapping(method = RequestMethod.POST, path = "/dog")

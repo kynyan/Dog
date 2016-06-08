@@ -11,24 +11,40 @@
 
     <properties>
         <lombok.version>1.16.6</lombok.version>
-        <hibernate-validator.version>5.2.3.Final</hibernate-validator.version>
+        <hibernate-validator.version>5.2.4.Final</hibernate-validator.version>
+        <javax.el.version>2.2.4</javax.el.version>
         <spring-data-jpa.version>1.9.4.RELEASE</spring-data-jpa.version>
         <spring.version>4.2.4.RELEASE</spring.version>
         <hsqldb.version>2.3.3</hsqldb.version>
-        <javax.sevet-api.version>3.1.0</javax.sevet-api.version>
+        <javax.servlet-api.version>3.1.0</javax.servlet-api.version>
+        <rest-assured.version>2.8.0</rest-assured.version>
+        <jackson.version>2.6.6</jackson.version>
+        <junit.version>4.12</junit.version>
+        <unitils-core.version>3.4.2</unitils-core.version>
     </properties>
 
     <dependencies>
         <dependency>
-         <groupId>org.projectlombok</groupId>
-         <artifactId>lombok</artifactId>
-          <version>${lombok.version}</version>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>${lombok.version}</version>
         </dependency>
 
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-validator</artifactId>
             <version>${hibernate-validator.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>javax.el</groupId>
+            <artifactId>javax.el-api</artifactId>
+            <version>${javax.el.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.glassfish.web</groupId>
+            <artifactId>javax.el</artifactId>
+            <version>${javax.el.version}</version>
         </dependency>
 
         <dependency>
@@ -64,8 +80,46 @@
         <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>javax.servlet-api</artifactId>
-            <version>${javax.sevet-api.version}</version>
+            <version>${javax.servlet-api.version}</version>
             <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>com.jayway.restassured</groupId>
+            <artifactId>rest-assured</artifactId>
+            <version>${rest-assured.version}</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>io.qala.datagen</groupId>
+            <artifactId>qala-datagen</artifactId>
+            <version>1.7.1</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.fasterxml.jackson.datatype</groupId>
+            <artifactId>jackson-datatype-jsr310</artifactId>
+            <version>${jackson.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>${junit.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.unitils</groupId>
+            <artifactId>unitils-core</artifactId>
+            <version>${unitils-core.version}</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-test</artifactId>
+            <version>${spring.version}</version>
         </dependency>
 
 
@@ -73,16 +127,16 @@
     </dependencies>
 
     <!--<distributionManagement>-->
-        <!--<repository>-->
-            <!--<id>central</id>-->
-            <!--<name>Nikitas-MacBook-Pro.local-releases</name>-->
-            <!--<url>http://localhost:8081/artifactory/libs-release-local</url>-->
-        <!--</repository>-->
-        <!--<snapshotRepository>-->
-            <!--<id>snapshots</id>-->
-            <!--<name>Nikitas-MacBook-Pro.local-snapshots</name>-->
-            <!--<url>http://localhost:8081/artifactory/libs-snapshot-local</url>-->
-        <!--</snapshotRepository>-->
+    <!--<repository>-->
+    <!--<id>central</id>-->
+    <!--<name>Nikitas-MacBook-Pro.local-releases</name>-->
+    <!--<url>http://localhost:8081/artifactory/libs-release-local</url>-->
+    <!--</repository>-->
+    <!--<snapshotRepository>-->
+    <!--<id>snapshots</id>-->
+    <!--<name>Nikitas-MacBook-Pro.local-snapshots</name>-->
+    <!--<url>http://localhost:8081/artifactory/libs-snapshot-local</url>-->
+    <!--</snapshotRepository>-->
     <!--</distributionManagement>-->
 
 
@@ -104,6 +158,16 @@
                     <username>admin</username>
                     <password>password</password>
                 </configuration>
+                <executions>
+                    <execution>
+                        <phase>
+                            package
+                        </phase>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>

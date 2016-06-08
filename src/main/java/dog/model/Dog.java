@@ -1,9 +1,7 @@
 package dog.model;
 
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import dog.utils.RandomBirthDate;
+import lombok.*;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -12,10 +10,11 @@ import javax.validation.constraints.Past;
 import javax.validation.constraints.Size;
 import java.time.LocalDate;
 
+import static io.qala.datagen.RandomShortApi.*;
+
 @Getter
 @Setter
 @ToString
-@RequiredArgsConstructor
 @Entity
 public class Dog {
 
@@ -25,6 +24,17 @@ public class Dog {
     public static final String DOG_HEIGHT_WEIGHT_NOTE = "Should be strictly greater than 0";
     public static final String DOG_BIRTH_DATE = "Should be some date in the past";
 
+    public Dog() {
+    }
+
+    public Dog(String name, LocalDate birthDate, double height, double weight, long id) {
+        this.name = name;
+        this.birthDate = birthDate;
+        this.height = height;
+        this.weight = weight;
+        this.id = id;
+    }
+
     @Size(min=DOG_NAME_LOWER_BOUNDARY, max = DOG_NAME_UPPER_BOUNDARY, message = DOG_NAME_SIZE_NOTE)
     private String name;
 
@@ -32,11 +42,22 @@ public class Dog {
     private LocalDate birthDate;
 
     @DecimalMin(value="0", inclusive = false, message = DOG_HEIGHT_WEIGHT_NOTE)
-    private Double height;
+    private double height;
 
     @DecimalMin(value="0", inclusive = false, message = DOG_HEIGHT_WEIGHT_NOTE)
-    private Double weight;
+    private double weight;
 
     @Id
-    private Long id;
+    private long id;
+
+    public static Dog random() {
+
+        Dog dog = new Dog();
+        dog.setName(alphanumeric(DOG_NAME_LOWER_BOUNDARY, DOG_NAME_UPPER_BOUNDARY));
+        dog.setBirthDate((new RandomBirthDate().randomBirthDate()));
+        dog.setHeight((double)integer(100));
+        dog.setWeight((double)integer(50));
+
+        return dog;
+    }
 }
