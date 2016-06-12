@@ -1,5 +1,7 @@
 package dog.model;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
 import dog.utils.RandomBirthDate;
 import lombok.*;
 
@@ -38,6 +40,7 @@ public class Dog {
     @Size(min=DOG_NAME_LOWER_BOUNDARY, max = DOG_NAME_UPPER_BOUNDARY, message = DOG_NAME_SIZE_NOTE)
     private String name;
 
+    @JsonDeserialize(using=LocalDateDeserializer.class)
     @Past(message = DOG_BIRTH_DATE)
     private LocalDate birthDate;
 
