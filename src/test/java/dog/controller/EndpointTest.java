@@ -1,7 +1,7 @@
 package dog.controller;
 
 import com.jayway.restassured.response.Response;
-import dog.dao.DogDao;
+import dog.dao.DogInMemoryDao;
 import dog.model.Dog;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
@@ -19,12 +19,12 @@ import static org.unitils.reflectionassert.ReflectionAssert.assertReflectionEqua
 public class EndpointTest extends AbstractTestNGSpringContextTests {
 
     @Autowired
-    DogDao dogDao;
+    DogInMemoryDao dogInMemoryDao;
 
     @org.testng.annotations.Test
     public void mustReturnCreatedListOfDogs() {
         //create static collection of Dogs
-        List<Dog> dogs = dogDao.createStaticDogs();
+        List<Dog> dogs = dogInMemoryDao.createStaticDogs();
 
         Response response = when().get("/dog").
                 then().extract().response();

@@ -12,6 +12,7 @@
     <properties>
         <lombok.version>1.16.6</lombok.version>
         <hibernate-validator.version>5.2.4.Final</hibernate-validator.version>
+        <hibernate-java8.version>5.1.0.Final</hibernate-java8.version>
         <spring-data-jpa.version>1.9.4.RELEASE</spring-data-jpa.version>
         <spring.version>4.2.4.RELEASE</spring.version>
         <hsqldb.version>2.3.3</hsqldb.version>
@@ -108,6 +109,12 @@
             <groupId>org.springframework</groupId>
             <artifactId>spring-test</artifactId>
             <version>${spring.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-java8</artifactId>
+            <version>${hibernate-java8.version}</version>
         </dependency>
 
     </dependencies>

@@ -16,13 +16,13 @@ import static org.unitils.reflectionassert.ReflectionAssert.assertReflectionEqua
 public class DaoTest extends AbstractTestNGSpringContextTests {
 
     @Autowired
-    DogDao dogDao;
+    DogInMemoryDao dogInMemoryDao;
 
     @org.testng.annotations.Test
     public void mustReturnCreatedListOfDogs() {
 
         //create static collection of Dogs using DAO
-        List<Dog> dogsFromDao = dogDao.createStaticDogs();
+        List<Dog> dogsFromDao = dogInMemoryDao.createStaticDogs();
 
         //create same collection without DAO
         List<Dog> dogs = new ArrayList<Dog>();

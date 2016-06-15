@@ -15,6 +15,6 @@
 
     <bean id="dogEndpoint" class="dog.endpoint.DogEndpoint" />
 
-    <bean id="dogDao" class="dog.dao.DogDao"/>
+    <bean id="dogDao" class="dog.dao.DogInMemoryDao"/>
 
 </beans>

@@ -2,7 +2,7 @@ package dog.controller;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import dog.dao.DogDao;
+import dog.dao.DogInMemoryDao;
 import dog.model.Dog;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -28,7 +28,7 @@ import static org.unitils.reflectionassert.ReflectionAssert.assertReflectionEqua
 public class MockMVCControllerTest extends AbstractTestNGSpringContextTests {
 
     @Autowired
-    DogDao dogDao;
+    DogInMemoryDao dogInMemoryDao;
 
     @Autowired
     WebApplicationContext wac;
@@ -43,7 +43,7 @@ public class MockMVCControllerTest extends AbstractTestNGSpringContextTests {
     @Test
     public void mustReturnCollectionOfDogs() throws Exception {
 
-        List<Dog> dogs = dogDao.createStaticDogs();
+        List<Dog> dogs = dogInMemoryDao.createStaticDogs();
 
         String result = this.mockMvc.perform(get("/dog"))
                 .andExpect(status().isOk())
