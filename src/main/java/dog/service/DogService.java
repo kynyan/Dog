@@ -14,8 +14,11 @@ import java.util.List;
 @Service
 public class DogService {
 
-    @Autowired
     DogHibernateDaoImpl dogHibernateDao;
+
+    public DogService(DogHibernateDaoImpl dogHibernateDao) {
+        this.dogHibernateDao = dogHibernateDao;
+    }
 
     public List<Dog> createRandomDogs(final Integer amt) {
         List<Dog> result = new ArrayList<Dog>();
@@ -28,6 +31,12 @@ public class DogService {
 
     public List<Dog> getAllDogs() {
         return dogHibernateDao.getAllDogs();
+    }
+
+    public void addRandomDogs(List<Dog> dogList) {
+        for (Dog dog:dogList) {
+            dogHibernateDao.addDog(dog);
+        }
     }
 
 }

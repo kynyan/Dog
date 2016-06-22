@@ -10,8 +10,11 @@ import java.util.List;
 @Repository
 public class DogHibernateDaoImpl implements DogDao {
 
-    @Autowired
     private SessionFactory sessionFactory;
+
+    public DogHibernateDaoImpl(SessionFactory sessionFactory) {
+        this.sessionFactory = sessionFactory;
+    }
 
     @Override
     public void addDog(Dog dog) {

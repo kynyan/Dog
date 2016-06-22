@@ -16,7 +16,6 @@ import static io.qala.datagen.RandomShortApi.*;
 @Getter
 @Setter
 @ToString
-@Entity
 public class Dog {
 
     public static final String DOG_NAME_SIZE_NOTE = "Should be between 1 and 100 symbols.";
@@ -40,7 +39,7 @@ public class Dog {
     private String name;
 
     @JsonDeserialize(using=LocalDateDeserializer.class)
-    @Past(message = DOG_BIRTH_DATE)
+    //@Past(message = DOG_BIRTH_DATE)
     private LocalDate birthDate;
 
     @DecimalMin(value="0", inclusive = false, message = DOG_HEIGHT_WEIGHT_NOTE)
@@ -64,4 +63,5 @@ public class Dog {
 
         return dog;
     }
+
 }
