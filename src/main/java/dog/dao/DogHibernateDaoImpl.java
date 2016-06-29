@@ -17,8 +17,8 @@ public class DogHibernateDaoImpl implements DogDao {
     }
 
     @Override
-    public void addDog(Dog dog) {
-        this.sessionFactory.getCurrentSession().save(dog);
+    public Long addDog(Dog dog) {
+        return (Long)this.sessionFactory.getCurrentSession().save(dog);
     }
 
     @SuppressWarnings("unchecked")
@@ -26,6 +26,7 @@ public class DogHibernateDaoImpl implements DogDao {
     public List<Dog> getAllDogs() {
         return this.sessionFactory.getCurrentSession().createQuery("from Dog").list();
     }
+
     @Override
     public void deleteDog(Integer dogId) {
         Dog dog = (Dog) sessionFactory.getCurrentSession().load(

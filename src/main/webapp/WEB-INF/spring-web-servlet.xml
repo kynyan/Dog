@@ -9,6 +9,6 @@
 
     <mvc:annotation-driven />
     <mvc:resources mapping="/resources/**" location="/resources/" />
-    <import resource="classes/app-context.xml" />
+    <import resource="classpath:app-context.xml" />
 
 </beans>

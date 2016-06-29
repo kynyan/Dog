@@ -12,7 +12,7 @@ import java.util.List;
 import static org.unitils.reflectionassert.ReflectionAssert.assertReflectionEquals;
 
 @org.testng.annotations.Test
-@ContextConfiguration(locations = "classpath:test-context.xml")
+@ContextConfiguration(locations = "classpath:app-context.xml")
 public class DaoTest extends AbstractTestNGSpringContextTests {
 
     @Autowired

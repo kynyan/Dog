@@ -11,7 +11,7 @@ import java.util.List;
 @RestController
 public class DogEndpoint {
 
-    DogService dogService;
+    private DogService dogService;
 
     public DogEndpoint(DogService dogService) {
         this.dogService = dogService;
@@ -24,9 +24,13 @@ public class DogEndpoint {
 
     @RequestMapping(method = RequestMethod.GET, path = "/dog", produces="application/json")
     public ResponseEntity<List<Dog>> listDogs() {
-//        return ResponseEntity.ok(dogService.createRandomDogs(10));
 //        return ResponseEntity.ok(dogInMemoryDao.createStaticDogs());
         return ResponseEntity.ok(dogService.getAllDogs());
+    }
+
+    @RequestMapping(method = RequestMethod.POST, headers = {"content-type=application/json"}, consumes="application/json", path = "/dog")
+    public void createDog(@RequestBody Dog dog) {
+        ResponseEntity.ok(dogService.createDog(dog));
     }
 
     public void init() {

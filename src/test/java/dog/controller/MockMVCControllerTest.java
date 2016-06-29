@@ -24,7 +24,7 @@ import static org.unitils.reflectionassert.ReflectionAssert.assertReflectionEqua
 
 @Test
 @WebAppConfiguration
-@ContextConfiguration(locations = "classpath:test-context.xml")
+@ContextConfiguration(locations = "classpath:app-context.xml")
 public class MockMVCControllerTest extends AbstractTestNGSpringContextTests {
 
     @Autowired

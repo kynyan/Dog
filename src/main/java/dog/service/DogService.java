@@ -14,7 +14,7 @@ import java.util.List;
 @Service
 public class DogService {
 
-    DogHibernateDaoImpl dogHibernateDao;
+    private DogHibernateDaoImpl dogHibernateDao;
 
     public DogService(DogHibernateDaoImpl dogHibernateDao) {
         this.dogHibernateDao = dogHibernateDao;
@@ -37,6 +37,10 @@ public class DogService {
         for (Dog dog:dogList) {
             dogHibernateDao.addDog(dog);
         }
+    }
+
+    public Long createDog(Dog dog) {
+        return dogHibernateDao.addDog(dog);
     }
 
 }
