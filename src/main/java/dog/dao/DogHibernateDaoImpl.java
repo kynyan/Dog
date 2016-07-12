@@ -2,7 +2,6 @@ package dog.dao;
 
 import dog.model.Dog;
 import org.hibernate.SessionFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -17,8 +16,9 @@ public class DogHibernateDaoImpl implements DogDao {
     }
 
     @Override
-    public Long addDog(Dog dog) {
-        return (Long)this.sessionFactory.getCurrentSession().save(dog);
+    public Dog addDog(Dog dog) {
+        this.sessionFactory.getCurrentSession().save(dog);
+        return dog;
     }
 
     @SuppressWarnings("unchecked")
@@ -28,7 +28,20 @@ public class DogHibernateDaoImpl implements DogDao {
     }
 
     @Override
-    public void deleteDog(Integer dogId) {
+    public Dog getDogById(long id) {
+        return (Dog) this.sessionFactory.getCurrentSession().get(Dog.class, id);
+    }
+
+    @Override
+    public Dog updateDog(Dog dog) {
+        Dog dogToUpdate = getDogById(dog.getId());
+        dogToUpdate = dog;
+        this.sessionFactory.getCurrentSession().merge(dogToUpdate);
+        return dogToUpdate;
+    }
+
+    @Override
+    public void deleteDog(long dogId) {
         Dog dog = (Dog) sessionFactory.getCurrentSession().load(
                 Dog.class, dogId);
         if (null != dog) {

@@ -3,11 +3,8 @@ package dog.service;
 
 import dog.dao.DogHibernateDaoImpl;
 import dog.model.Dog;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,14 +30,26 @@ public class DogService {
         return dogHibernateDao.getAllDogs();
     }
 
+    public Dog getDogById(long id) {
+        return dogHibernateDao.getDogById(id);
+    }
+
     public void addRandomDogs(List<Dog> dogList) {
         for (Dog dog:dogList) {
             dogHibernateDao.addDog(dog);
         }
     }
 
-    public Long createDog(Dog dog) {
+    public Dog createDog(Dog dog) {
         return dogHibernateDao.addDog(dog);
+    }
+
+    public Dog updateDog(Dog dog) {
+        return dogHibernateDao.updateDog(dog);
+    }
+
+    public void deleteDog(long id) {
+        dogHibernateDao.deleteDog(id);
     }
 
 }

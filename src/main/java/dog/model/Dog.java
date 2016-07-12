@@ -39,7 +39,6 @@ public class Dog {
     private String name;
 
     @JsonDeserialize(using=LocalDateDeserializer.class)
-    //@Past(message = DOG_BIRTH_DATE)
     private LocalDate birthDate;
 
     @DecimalMin(value="0", inclusive = false, message = DOG_HEIGHT_WEIGHT_NOTE)
@@ -58,8 +57,8 @@ public class Dog {
         Dog dog = new Dog();
         dog.setName(alphanumeric(DOG_NAME_LOWER_BOUNDARY, DOG_NAME_UPPER_BOUNDARY));
         dog.setBirthDate((new RandomBirthDate().randomBirthDate()));
-        dog.setHeight((double)integer(100));
-        dog.setWeight((double)integer(50));
+        dog.setHeight((double)integer(1, 100));
+        dog.setWeight((double)integer(1, 50));
 
         return dog;
     }
