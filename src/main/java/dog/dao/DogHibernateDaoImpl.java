@@ -48,4 +48,8 @@ public class DogHibernateDaoImpl implements DogDao {
             this.sessionFactory.getCurrentSession().delete(dog);
         }
     }
+
+    public SessionFactory getSessionFactory() {
+        return this.sessionFactory;
+    }
 }

@@ -2,12 +2,12 @@ package dog.model;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
+import dog.utils.BeforeNow;
 import dog.utils.RandomBirthDate;
 import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.DecimalMin;
-import javax.validation.constraints.Past;
 import javax.validation.constraints.Size;
 import java.time.LocalDate;
 
@@ -18,7 +18,7 @@ import static io.qala.datagen.RandomShortApi.*;
 @ToString
 public class Dog {
 
-    public static final String DOG_NAME_SIZE_NOTE = "Should be between 1 and 100 symbols.";
+    public static final String DOG_NAME_SIZE_NOTE = "Should be between 1 and 100 symbols";
     public static final int DOG_NAME_LOWER_BOUNDARY = 1;
     public static final int DOG_NAME_UPPER_BOUNDARY = 100;
     public static final String DOG_HEIGHT_WEIGHT_NOTE = "Should be strictly greater than 0";
@@ -39,6 +39,7 @@ public class Dog {
     private String name;
 
     @JsonDeserialize(using=LocalDateDeserializer.class)
+    @BeforeNow(message = DOG_BIRTH_DATE)
     private LocalDate birthDate;
 
     @DecimalMin(value="0", inclusive = false, message = DOG_HEIGHT_WEIGHT_NOTE)

@@ -1,38 +1,67 @@
 package dog.dao;
 
 import dog.model.Dog;
+import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
+import org.springframework.test.context.testng.AbstractTransactionalTestNGSpringContextTests;
 
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
 
+import static org.testng.Assert.assertEquals;
 import static org.unitils.reflectionassert.ReflectionAssert.assertReflectionEquals;
 
 @org.testng.annotations.Test
 @ContextConfiguration(locations = "classpath:app-context.xml")
-public class DaoTest extends AbstractTestNGSpringContextTests {
+@Rollback(true)
+public class DaoTest extends AbstractTransactionalTestNGSpringContextTests {
 
     @Autowired
-    DogInMemoryDao dogInMemoryDao;
+    private DogHibernateDaoImpl dogHibernateDao;
 
     @org.testng.annotations.Test
-    public void mustReturnCreatedListOfDogs() {
+    public void mustCreateNewDog() {
+        //add random dog
+        Dog addedDog = dogHibernateDao.addDog(Dog.random());
+        flushSession(dogHibernateDao.getSessionFactory());
 
-        //create static collection of Dogs using DAO
-        List<Dog> dogsFromDao = dogInMemoryDao.createStaticDogs();
+        //fetch added dog
+        Dog fetchedDog = dogHibernateDao.getDogById(addedDog.getId());
 
-        //create same collection without DAO
-        List<Dog> dogs = new ArrayList<Dog>();
-        LocalDate birthDate1 = LocalDate.of(1994, 4, 5);
-        LocalDate birthDate2 = LocalDate.of(2005, 1, 15);
-        Dog createdDog1 = new Dog("afsdflkj", birthDate1, 10, 20, 1);
-        Dog createdDog2 = new Dog("dfgfdh", birthDate2, 30, 42, 2);
-        dogs.add(createdDog1);
-        dogs.add(createdDog2);
+        assertReflectionEquals(addedDog, fetchedDog);
+    }
 
-        assertReflectionEquals(dogs, dogsFromDao);
+    @org.testng.annotations.Test
+    public void mustUpdateDog() {
+        //add random dog
+        Dog addedDog = dogHibernateDao.addDog(Dog.random());
+        flushSession(dogHibernateDao.getSessionFactory());
+
+        //update created dog
+        Dog newDog = Dog.random();
+        newDog.setId(addedDog.getId());
+        dogHibernateDao.updateDog(newDog);
+        flushSession(dogHibernateDao.getSessionFactory());
+
+        Dog fetchedDog = dogHibernateDao.getDogById(addedDog.getId());
+
+        assertReflectionEquals(newDog, fetchedDog);
+    }
+
+    @org.testng.annotations.Test
+    public void mustDeleteDog() {
+        //add random dog and remove it
+        Dog addedDog = dogHibernateDao.addDog(Dog.random());
+        dogHibernateDao.deleteDog(addedDog.getId());
+        flushSession(dogHibernateDao.getSessionFactory());
+
+        //try to fetch removed dog
+        Dog fetchedDog = dogHibernateDao.getDogById(addedDog.getId());
+
+        assertEquals(null, fetchedDog);
+    }
+
+    private void flushSession(SessionFactory sessionFactory) {
+        sessionFactory.getCurrentSession().flush();
     }
 }

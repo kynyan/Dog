@@ -21,6 +21,7 @@
         <jackson.version>2.6.6</jackson.version>
         <testng.version>6.9.10</testng.version>
         <unitils-core.version>3.4.2</unitils-core.version>
+        <qala-datagen.version>1.7.1</qala-datagen.version>
     </properties>
 
     <dependencies>
@@ -83,7 +84,13 @@
         <dependency>
             <groupId>io.qala.datagen</groupId>
             <artifactId>qala-datagen</artifactId>
-            <version>1.7.1</version>
+            <version>${qala-datagen.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>io.qala.datagen</groupId>
+            <artifactId>qala-datagen-java8types</artifactId>
+            <version>${qala-datagen.version}</version>
         </dependency>
 
         <dependency>
