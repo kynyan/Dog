@@ -64,5 +64,6 @@ public class DaoTest extends AbstractTransactionalTestNGSpringContextTests {
 
     private void flushSession(SessionFactory sessionFactory) {
         sessionFactory.getCurrentSession().flush();
+        sessionFactory.getCurrentSession().close();
     }
 }
