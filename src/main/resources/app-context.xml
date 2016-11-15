@@ -30,6 +30,10 @@
         <constructor-arg ref="dogHibernateDao"/>
     </bean>
 
+    <bean id="dogService2" class="dog.service.DogService2">
+        <constructor-arg ref="dogHibernateDao"/>
+    </bean>
+
     <bean id="txManager" class="org.springframework.orm.hibernate5.HibernateTransactionManager">
         <property name="sessionFactory" ref="sessionFactory" />
     </bean>
@@ -45,5 +49,8 @@
         <aop:pointcut id="dogServiceOperation" expression="execution(* dog.service.DogService.*(..))"/>
         <aop:advisor advice-ref="txAdvice" pointcut-ref="dogServiceOperation"/>
     </aop:config>
+
+    <aop:aspectj-autoproxy />
+    <bean id="someAspect" class="dog.service.SomeAspect" />
 
 </beans>

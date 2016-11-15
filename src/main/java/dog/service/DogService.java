@@ -3,8 +3,10 @@ package dog.service;
 
 import dog.dao.DogHibernateDaoImpl;
 import dog.model.Dog;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -41,7 +43,8 @@ public class DogService {
     }
 
     public Dog createDog(Dog dog) {
-        return dogHibernateDao.addDog(dog);
+        Dog newDog = dogHibernateDao.addDog(dog);
+        return newDog;
     }
 
     public Dog updateDog(Dog dog) {

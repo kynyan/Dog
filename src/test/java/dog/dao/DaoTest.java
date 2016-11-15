@@ -6,12 +6,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.testng.AbstractTransactionalTestNGSpringContextTests;
+import org.testng.annotations.Test;
 
 
 import static org.testng.Assert.assertEquals;
 import static org.unitils.reflectionassert.ReflectionAssert.assertReflectionEquals;
 
-@org.testng.annotations.Test
+@Test
 @ContextConfiguration(locations = "classpath:app-context.xml")
 @Rollback(true)
 public class DaoTest extends AbstractTransactionalTestNGSpringContextTests {
@@ -19,7 +20,7 @@ public class DaoTest extends AbstractTransactionalTestNGSpringContextTests {
     @Autowired
     private DogHibernateDaoImpl dogHibernateDao;
 
-    @org.testng.annotations.Test
+    @Test
     public void mustCreateNewDog() {
         //add random dog
         Dog addedDog = dogHibernateDao.addDog(Dog.random());
@@ -31,7 +32,7 @@ public class DaoTest extends AbstractTransactionalTestNGSpringContextTests {
         assertReflectionEquals(addedDog, fetchedDog);
     }
 
-    @org.testng.annotations.Test
+    @Test
     public void mustUpdateDog() {
         //add random dog
         Dog addedDog = dogHibernateDao.addDog(Dog.random());
@@ -48,7 +49,7 @@ public class DaoTest extends AbstractTransactionalTestNGSpringContextTests {
         assertReflectionEquals(newDog, fetchedDog);
     }
 
-    @org.testng.annotations.Test
+    @Test
     public void mustDeleteDog() {
         //add random dog and remove it
         Dog addedDog = dogHibernateDao.addDog(Dog.random());
