@@ -4,6 +4,8 @@ import dog.dao.DogHibernateDaoImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.testng.AbstractTransactionalTestNGSpringContextTests;
+import org.testng.Assert;
+import org.testng.annotations.Test;
 
 import static io.qala.datagen.RandomElements.from;
 import static io.qala.datagen.RandomShortApi.oneOf;
@@ -11,14 +13,14 @@ import static io.qala.datagen.RandomShortApi.positiveInteger;
 import static io.qala.datagen.RandomValue.length;
 import static io.qala.datagen.RandomDate.*;
 
-@org.testng.annotations.Test
+@Test
 @ContextConfiguration(locations = "classpath:app-context.xml")
 public class ModelTest extends AbstractTransactionalTestNGSpringContextTests {
 
     @Autowired
     private DogHibernateDaoImpl dogHibernateDao;
 
-    @org.testng.annotations.Test(expectedExceptions = {javax.validation.ConstraintViolationException.class},
+    @Test(expectedExceptions = {javax.validation.ConstraintViolationException.class},
             expectedExceptionsMessageRegExp = ".* between 1 and 100 .*")
     public void mustThrowConstraintViolationErrorIfDogNameIsInvalid() {
         //create random dog
@@ -29,7 +31,7 @@ public class ModelTest extends AbstractTransactionalTestNGSpringContextTests {
         Dog addedDog = dogHibernateDao.addDog(dogWithInvalidName);
     }
 
-    @org.testng.annotations.Test(expectedExceptions = {javax.validation.ConstraintViolationException.class},
+    @Test(expectedExceptions = {javax.validation.ConstraintViolationException.class},
             expectedExceptionsMessageRegExp = ".* some date in the .*")
     public void mustThrowConstraintViolationErrorIfDogBirthDateIsInvalid() {
         //create random dog
@@ -40,7 +42,18 @@ public class ModelTest extends AbstractTransactionalTestNGSpringContextTests {
         Dog addedDog = dogHibernateDao.addDog(dogWithInvalidBirthDate);
     }
 
-    @org.testng.annotations.Test(expectedExceptions = {javax.validation.ConstraintViolationException.class},
+    @Test
+    public void mustNotThrowConstraintViolationErrorIfDogBirthDateIsNull() {
+        //create random dog
+        Dog dogWithNullBirthDate = Dog.random();
+        dogWithNullBirthDate.setBirthDate(null);
+
+        //try to add dog
+        Dog addedDog = dogHibernateDao.addDog(dogWithNullBirthDate);
+        Assert.assertNull(addedDog.getBirthDate());
+    }
+
+    @Test(expectedExceptions = {javax.validation.ConstraintViolationException.class},
             expectedExceptionsMessageRegExp = ".* be strictly greater than .*")
     public void mustThrowConstraintViolationErrorIfDogWeightOrHeightIsInvalid() {
         //create random dog

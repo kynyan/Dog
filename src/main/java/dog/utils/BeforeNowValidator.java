@@ -10,6 +10,6 @@ public class BeforeNowValidator implements ConstraintValidator<BeforeNow, LocalD
 
     public final boolean isValid(final LocalDate value,
                                  final ConstraintValidatorContext context) {
-        return value.isBefore(LocalDate.now());
+        return value == null || value.isBefore(LocalDate.now());
     }
 }
