@@ -24,11 +24,9 @@ public class DaoTest extends AbstractTransactionalTestNGSpringContextTests {
     public void mustCreateNewDog() {
         //add random dog
         Dog addedDog = dogHibernateDao.addDog(Dog.random());
-        flushSession(dogHibernateDao.getSessionFactory());
-
+        flushAndClearSession(dogHibernateDao.getSessionFactory());
         //fetch added dog
         Dog fetchedDog = dogHibernateDao.getDogById(addedDog.getId());
-
         assertReflectionEquals(addedDog, fetchedDog);
     }
 
@@ -36,16 +34,13 @@ public class DaoTest extends AbstractTransactionalTestNGSpringContextTests {
     public void mustUpdateDog() {
         //add random dog
         Dog addedDog = dogHibernateDao.addDog(Dog.random());
-        flushSession(dogHibernateDao.getSessionFactory());
-
+        flushAndClearSession(dogHibernateDao.getSessionFactory());
         //update created dog
         Dog newDog = Dog.random();
         newDog.setId(addedDog.getId());
         dogHibernateDao.updateDog(newDog);
-        flushSession(dogHibernateDao.getSessionFactory());
-
+        flushAndClearSession(dogHibernateDao.getSessionFactory());
         Dog fetchedDog = dogHibernateDao.getDogById(addedDog.getId());
-
         assertReflectionEquals(newDog, fetchedDog);
     }
 
@@ -54,16 +49,14 @@ public class DaoTest extends AbstractTransactionalTestNGSpringContextTests {
         //add random dog and remove it
         Dog addedDog = dogHibernateDao.addDog(Dog.random());
         dogHibernateDao.deleteDog(addedDog.getId());
-        flushSession(dogHibernateDao.getSessionFactory());
-
+        flushAndClearSession(dogHibernateDao.getSessionFactory());
         //try to fetch removed dog
         Dog fetchedDog = dogHibernateDao.getDogById(addedDog.getId());
-
         assertEquals(null, fetchedDog);
     }
 
-    private void flushSession(SessionFactory sessionFactory) {
+    private void flushAndClearSession(SessionFactory sessionFactory) {
         sessionFactory.getCurrentSession().flush();
-        sessionFactory.getCurrentSession().close();
+        sessionFactory.getCurrentSession().clear();
     }
 }

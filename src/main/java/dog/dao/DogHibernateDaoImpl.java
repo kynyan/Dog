@@ -34,10 +34,8 @@ public class DogHibernateDaoImpl implements DogDao {
 
     @Override
     public Dog updateDog(Dog dog) {
-        Dog dogToUpdate = getDogById(dog.getId());
-        dogToUpdate = dog;
-        this.sessionFactory.getCurrentSession().merge(dogToUpdate);
-        return dogToUpdate;
+        Dog dogUpdated = (Dog) this.sessionFactory.getCurrentSession().merge(dog);
+        return dogUpdated;
     }
 
     @Override
