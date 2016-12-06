@@ -27,12 +27,30 @@
         </property>
     </bean>
 
-    <bean id="dataSource"
-          class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-        <property name="driverClassName" value="${app.jdbc.driverClassName}" />
-        <property name="url" value="${app.jdbc.url}" />
-        <property name="username" value="${app.jdbc.username}" />
-        <property name="password" value="" />
+    <!--<bean id="dataSource"-->
+          <!--class="org.springframework.jdbc.datasource.DriverManagerDataSource">-->
+        <!--<property name="driverClassName" value="${app.jdbc.driverClassName}" />-->
+        <!--<property name="url" value="${app.jdbc.url}" />-->
+        <!--<property name="username" value="${app.jdbc.username}" />-->
+        <!--<property name="password" value="" />-->
+    <!--</bean>-->
+
+    <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">
+        <property name="driverClass" value="${app.jdbc.driverClassName}" />
+        <property name="jdbcUrl" value="${app.jdbc.url}" />
+        <property name="user" value="${app.jdbc.username}" />
+        <property name="password" value="${app.jdbc.password}" />
+        <property name="initialPoolSize" value="4" />
+        <property name="maxPoolSize" value="8" />
+        <property name="minPoolSize" value="4" />
+        <property name="acquireIncrement" value="2" />
+        <property name="maxStatements" value="0" />
+        <property name="testConnectionOnCheckout" value="true" />
+        <!--<property name="testConnectionOnCheckin" value="true" />-->
+        <!--<property name="idleConnectionTestPeriod" value="50" />-->
+        <!--<property name="preferredTestQuery" value="SELECT 1" />-->
+        <property name="acquireRetryAttempts" value="1" />
+        <property name="checkoutTimeout" value="10000" />
     </bean>
 
 

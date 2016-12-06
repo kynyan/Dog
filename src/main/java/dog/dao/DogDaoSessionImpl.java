@@ -14,7 +14,8 @@ public class DogDaoSessionImpl implements DogDao {
 
     @Override
     public Dog addDog(Dog dog) {
-        return (Dog) this.currentSession.save(dog);
+        this.currentSession.save(dog);
+        return dog;
     }
 
     @Override

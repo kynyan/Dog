@@ -6,25 +6,16 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
-import org.hibernate.service.ServiceRegistry;
-import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.testng.AbstractTransactionalTestNGSpringContextTests;
 import org.testng.annotations.Test;
-import org.unitils.reflectionassert.util.HibernateUtil;
-
-import javax.persistence.*;
-import javax.transaction.UserTransaction;
 
 import java.util.Properties;
 
 import static org.unitils.reflectionassert.ReflectionAssert.assertReflectionEquals;
 
 @Test
-@ContextConfiguration(locations = {"classpath:app-context.xml", "classpath:Dog.hbm.xml"})//, "classpath:hsqldb-config.xml", "classpath:application.properties", "classpath:Dog.hbm.xml"})
-public class DaoTest2 {//extends AbstractTransactionalTestNGSpringContextTests {
-//    @PersistenceContext
-//    EntityManager em;
+@ContextConfiguration(locations = {"classpath:app-context.xml"})
+public class DaoTest2 {
 
     @Test
     public void mustCreateNewDog() {
@@ -59,11 +50,9 @@ public class DaoTest2 {//extends AbstractTransactionalTestNGSpringContextTests {
         properties.put("hibernate.connection.username", "sa");
         properties.put("hibernate.connection.password", "");
 
-        return new Configuration().configure("hsqldb-config.xml")
-                .addResource("resources/Dog.hbm.xml")
-//                .addProperties(properties)
-//                .addResource("Dog.hbm.xml")
-//                .addAnnotatedClass(Dog.class)
+        return new Configuration()
+                .addResource("Dog.hbm.xml")
+                .addProperties(properties)
                 .buildSessionFactory(
                         new StandardServiceRegistryBuilder()
                                 .applySettings(properties)
